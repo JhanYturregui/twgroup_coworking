@@ -14,7 +14,6 @@ class HomeController extends Controller
     public function __construct()
     {
       $this->middleware('auth');
-      $this->local = new Local;
     }
 
     /**
@@ -23,9 +22,7 @@ class HomeController extends Controller
      * @return \Illuminate\View\View
      */
     public function index()
-    {
-      $locales = $this->local->obtenerLocalesActivos();
-      
-      return view('dashboard', compact('locales'));
+    { 
+      return view('dashboard');
     }
 }

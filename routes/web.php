@@ -2,100 +2,27 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-/* Route::get('/', function () {
-    return view('welcome');
-}); */
 Auth::routes();
 
 Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
 
 Route::group(['middleware' => 'auth'], function () {
-	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
-	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
-	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
-	Route::get('upgrade', function () {return view('pages.upgrade');})->name('upgrade'); 
-	Route::get('map', function () {return view('pages.maps');})->name('map');
-	Route::get('icons', function () {return view('pages.icons');})->name('icons'); 
-	Route::get('table-list', function () {return view('pages.tables');})->name('table');
-	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
-
-	Route::prefix('modelos')->group(function () {
-		Route::get('/', [App\Http\Controllers\ModeloController::class, 'index'])->name('modelos');
-		Route::get('/obtener', [App\Http\Controllers\ModeloController::class, 'obtenerDatos'])->name('modelos_obtener');
-		Route::get('/crear', [App\Http\Controllers\ModeloController::class, 'create'])->name('modelos_crear');
-		Route::post('/', [App\Http\Controllers\ModeloController::class, 'store'])->name('modelos_registrar');
-		Route::get('/editar/{id}', [App\Http\Controllers\ModeloController::class, 'edit'])->name('modelos_editar');
-		Route::put('/', [App\Http\Controllers\ModeloController::class, 'update'])->name('modelos_actualizar');
-		Route::delete('/', [App\Http\Controllers\ModeloController::class, 'delete'])->name('modelos_eliminar');
-	});
-	
-	Route::prefix('marcas')->group(function () {
-		Route::get('/', [App\Http\Controllers\MarcaController::class, 'index'])->name('marcas');
-		Route::get('/obtener', [App\Http\Controllers\MarcaController::class, 'obtenerDatos'])->name('marcas_obtener');
-		Route::get('/crear', [App\Http\Controllers\MarcaController::class, 'create'])->name('marcas_crear');
-		Route::post('/registrar', [App\Http\Controllers\MarcaController::class, 'store'])->name('marcas_registrar');
-		Route::get('/editar/{id}', [App\Http\Controllers\MarcaController::class, 'edit'])->name('marcas_editar');
-		Route::put('/actualizar', [App\Http\Controllers\MarcaController::class, 'update'])->name('marcas_actualizar');
-		Route::delete('/eliminar', [App\Http\Controllers\MarcaController::class, 'delete'])->name('marcas_eliminar');
-	});
-	
-	Route::prefix('clases')->group(function () {
-		Route::get('/', [App\Http\Controllers\ClaseController::class, 'index'])->name('clases');
-		Route::get('/obtener', [App\Http\Controllers\ClaseController::class, 'obtenerDatos'])->name('clases_obtener');
-		Route::get('/crear', [App\Http\Controllers\ClaseController::class, 'create'])->name('clases_crear');
-		Route::post('/registrar', [App\Http\Controllers\ClaseController::class, 'store'])->name('clases_registrar');
-		Route::get('/editar/{id}', [App\Http\Controllers\ClaseController::class, 'edit'])->name('clases_editar');
-		Route::put('/actualizar', [App\Http\Controllers\ClaseController::class, 'update'])->name('clases_actualizar');
-		Route::delete('/eliminar', [App\Http\Controllers\ClaseController::class, 'delete'])->name('clases_eliminar');
-	});
-	
-	Route::prefix('ubigeo')->group(function () {
-		Route::get('/', [App\Http\Controllers\UbigeoController::class, 'index'])->name('ubigeo');
-		Route::get('/obtener', [App\Http\Controllers\UbigeoController::class, 'obtenerDatos'])->name('ubigeo_obtener');
-		Route::post('/importar', [App\Http\Controllers\UbigeoController::class, 'obtenerDatos'])->name('ubigeo_importar');
-		Route::post('/cargar_provincias', [App\Http\Controllers\UbigeoController::class, 'cargarProvincias'])->name('ubigeo_cargar_provincias');
-		Route::post('/cargar_distritos', [App\Http\Controllers\UbigeoController::class, 'cargarDistritos'])->name('ubigeo_cargar_distritos');
-	});
-	
-	Route::prefix('locales')->group(function () {
-		Route::get('/', [App\Http\Controllers\LocalController::class, 'index'])->name('locales');
-		Route::get('/obtener', [App\Http\Controllers\LocalController::class, 'obtenerDatos'])->name('locales_obtener');
-		Route::get('/crear', [App\Http\Controllers\LocalController::class, 'create'])->name('locales_crear');
-		Route::post('/registrar', [App\Http\Controllers\LocalController::class, 'store'])->name('locales_registrar');
-		Route::get('/editar/{id}', [App\Http\Controllers\LocalController::class, 'edit'])->name('locales_editar');
-		Route::post('/actualizar', [App\Http\Controllers\LocalController::class, 'update'])->name('locales_actualizar');
-		Route::post('/eliminar', [App\Http\Controllers\LocalController::class, 'delete'])->name('locales_eliminar');
-	});
-	
-	Route::prefix('unidades-medida')->group(function () {
-		Route::get('/', [App\Http\Controllers\UnidadMedidaController::class, 'index'])->name('unidades-medida');
-		Route::get('/obtener', [App\Http\Controllers\UnidadMedidaController::class, 'obtenerDatos'])->name('unidades-medida_obtener');
-		Route::get('/crear', [App\Http\Controllers\UnidadMedidaController::class, 'create'])->name('unidades-medida_crear');
-		Route::post('/', [App\Http\Controllers\UnidadMedidaController::class, 'store'])->name('unidades-medida_registrar');
-		Route::get('/editar/{id}', [App\Http\Controllers\UnidadMedidaController::class, 'edit'])->name('unidades-medida_editar');
-		Route::put('/', [App\Http\Controllers\UnidadMedidaController::class, 'update'])->name('unidades-medida_actualizar');
-		Route::delete('/', [App\Http\Controllers\UnidadMedidaController::class, 'delete'])->name('unidades-medida_eliminar');
+	Route::prefix('coworkings')->middleware(['check.admin.role'])->group(function () {
+		Route::get('/', [App\Http\Controllers\CoworkingController::class, 'index'])->name('coworkings');
+		Route::get('/data', [App\Http\Controllers\CoworkingController::class, 'getData'])->name('coworkings_data');
+		Route::get('/create', [App\Http\Controllers\CoworkingController::class, 'create'])->name('coworkings_create');
+		Route::post('/', [App\Http\Controllers\CoworkingController::class, 'store'])->name('coworkings_register');
+		Route::get('/edit/{id}', [App\Http\Controllers\CoworkingController::class, 'edit'])->name('coworkings_edit');
+		Route::put('/', [App\Http\Controllers\CoworkingController::class, 'update'])->name('coworkings_update');
+		Route::delete('/', [App\Http\Controllers\CoworkingController::class, 'delete'])->name('coworkings_delete');
 	});
 
-	Route::prefix('productos')->group(function () {
-		Route::get('/', [App\Http\Controllers\ProductoController::class, 'index'])->name('productos');
-		Route::get('/obtener', [App\Http\Controllers\ProductoController::class, 'obtenerDatos'])->name('productos_obtener');
-		Route::get('/crear', [App\Http\Controllers\ProductoController::class, 'create'])->name('productos_crear');
-		Route::post('/', [App\Http\Controllers\ProductoController::class, 'store'])->name('productos_registrar');
-		Route::get('/editar/{id}', [App\Http\Controllers\ProductoController::class, 'edit'])->name('productos_editar');
-		Route::put('/', [App\Http\Controllers\ProductoController::class, 'update'])->name('productos_actualizar');
-		Route::delete('/', [App\Http\Controllers\ProductoController::class, 'delete'])->name('productos_eliminar');
+	Route::prefix('reservations')->group(function () {
+		Route::get('/', [App\Http\Controllers\ReservationController::class, 'index'])->name('reservations');
+		Route::get('/data', [App\Http\Controllers\ReservationController::class, 'getData'])->name('reservations_data');
+		Route::get('/create', [App\Http\Controllers\ReservationController::class, 'create'])->name('reservations_create');
+		Route::post('/', [App\Http\Controllers\ReservationController::class, 'store'])->name('reservations_register');
+		Route::put('/change-state', [App\Http\Controllers\ReservationController::class, 'changeState'])->name('reservations_change_state');
 	});
 });
 
