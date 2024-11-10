@@ -1,7 +1,5 @@
 # Clonar proyecto: git clone git@github.com:JhanYturregui/twgroup_coworking.git
 
-# Usar rama master
-
 # Instalar dependencias: composer install
 
 # Crear bd: db_twgroup
