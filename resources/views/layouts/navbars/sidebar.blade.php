@@ -69,7 +69,7 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('home') }}">
-                        <i class="fas fa-home"></i> {{ __('Inicio') }}
+                        <i class="fas fa-home"></i> {{ __('INICIO') }}
                     </a>
                 </li>
                 <li class="nav-item">
@@ -80,6 +80,11 @@
 
                     <div class="collapse show" id="navbar-almacen">
                         <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('productos') }}">
+                                    {{ __('Productos') }}
+                                </a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('modelos') }}">
                                     {{ __('Modelos') }}
@@ -93,6 +98,11 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('clases') }}">
                                     {{ __('Clases') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('unidades-medida') }}">
+                                    {{ __('Unidades de Medida') }}
                                 </a>
                             </li>
                             {{-- <li class="nav-item">

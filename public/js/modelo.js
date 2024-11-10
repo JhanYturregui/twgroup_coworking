@@ -1,5 +1,6 @@
 let origin = '';
 let scrollX = false;
+const RUTA_MODULO = 'modelos';
 
 window.onload = function() {
   origin = window.location.origin;
@@ -22,7 +23,7 @@ function inicializarDatatable (idTabla) {
     "responsive": true,
     "scrollX": scrollX,
     "ajax": {
-      "url": "modelos/obtener",
+      "url": `${RUTA_MODULO}/obtener`,
       "type": "get"
     },
     "columns": [
@@ -72,12 +73,12 @@ function registrar() {
 
   $.ajax({
     type: 'post',
-    url: 'registrar',
+    url: `../${RUTA_MODULO}`,
     dataType: 'json',
     data,
     success: function(a){
       if (a.estado) {
-        location.replace(origin + '/modelos');
+        location.replace(`${origin}/${RUTA_MODULO}`);
 
       } else {
         Swal.fire('Error!', a.mensaje, 'error');
@@ -101,13 +102,13 @@ function actualizar() {
   };
 
   $.ajax({
-    type: 'post',
-    url: '../actualizar',
+    type: 'put',
+    url: `../../${RUTA_MODULO}`,
     dataType: 'json',
     data,
     success: function(a){
       if (a.estado) {
-        location.replace(origin + '/modelos');
+        location.replace(origin + `/${RUTA_MODULO}`);
 
       }else {
         Swal.fire('Error!', a.mensaje, 'error');
@@ -131,13 +132,13 @@ function eliminar() {
     _token: $('input[name=_token]').val(),
   }
   $.ajax({
-    type: 'post',
-    url: 'modelos/eliminar',
+    type: 'delete',
+    url: `../${RUTA_MODULO}`,
     dataType: 'json',
     data,
     success: function(a){
       if (a.estado) {
-        location.replace(origin+'/modelos');
+        location.replace(origin+`/${RUTA_MODULO}`);
       }
     },
     error: function(e) {

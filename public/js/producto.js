@@ -1,5 +1,6 @@
 let origin = '';
 let scrollX = false;
+const RUTA_MODULO = 'productos';
 
 window.onload = function() {
   origin = window.location.origin;
@@ -22,13 +23,15 @@ function inicializarDatatable (idTabla) {
     "responsive": true,
     "scrollX": scrollX,
     "ajax": {
-      "url": "marcas/obtener",
+      "url": `${RUTA_MODULO}/obtener`,
       "type": "get"
     },
     "columns": [
         { data: 'id', searchable: false },
-        { data: 'nombre' },
-        { data: 'col-estado', searchable: false, orderable: false },
+        { data: 'codigo', orderable: false },
+        { data: 'articulo', orderable: false },
+        { data: 'moneda', searchable: false, orderable: false },
+        //{ data: 'col-estado', searchable: false, orderable: false },
         { data: 'created_at', searchable: false },
         { data: 'updated_at', searchable: false },
         { data: 'col-acciones', searchable: false, orderable: false },
@@ -36,7 +39,7 @@ function inicializarDatatable (idTabla) {
     "language": {
         "info": "_TOTAL_ registros",
         "search": "Buscar por:",
-        "searchPlaceholder": "Nombre",
+        "searchPlaceholder": "Nombre o código",
         "paginate": {
             "next": "Siguiente",
             "previous": "Anterior"
@@ -72,12 +75,12 @@ function registrar() {
 
   $.ajax({
     type: 'post',
-    url: 'registrar',
+    url: `../${RUTA_MODULO}`,
     dataType: 'json',
     data,
     success: function(a){
       if (a.estado) {
-        location.replace(origin + '/marcas');
+        location.replace(`${origin}/${RUTA_MODULO}`);
 
       } else {
         Swal.fire('Error!', a.mensaje, 'error');
@@ -102,12 +105,12 @@ function actualizar() {
 
   $.ajax({
     type: 'put',
-    url: '../actualizar',
+    url: `../../${RUTA_MODULO}`,
     dataType: 'json',
     data,
     success: function(a){
       if (a.estado) {
-        location.replace(origin + '/marcas');
+        location.replace(origin + `/${RUTA_MODULO}`);
 
       }else {
         Swal.fire('Error!', a.mensaje, 'error');
@@ -132,12 +135,12 @@ function eliminar() {
   }
   $.ajax({
     type: 'delete',
-    url: 'marcas/eliminar',
+    url: `../${RUTA_MODULO}`,
     dataType: 'json',
     data,
     success: function(a){
       if (a.estado) {
-        location.replace(origin+'/marcas');
+        location.replace(origin+`/${RUTA_MODULO}`);
       }
     },
     error: function(e) {

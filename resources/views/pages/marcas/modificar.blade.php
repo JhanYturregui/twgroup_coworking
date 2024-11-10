@@ -17,7 +17,12 @@
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-pen-nib"></i></span>
               </div>
-              <input type="text" class="form-control" id="nombre" placeholder="Nombre" value="{{ $dato['nombre'] }}">
+              <input 
+                  id="nombre"
+                  type="text"
+                  class="form-control"
+                  placeholder="{{ __('Nombre') }}"
+                  value="{{ $dato['nombre'] }}">
             </div>
             <div class="input-group form-group mt-3">
               <label class="custom-toggle">

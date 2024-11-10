@@ -23,7 +23,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Navbar items -->
+            {{-- <!-- Navbar items -->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link nav-link-icon" href="{{ route('home') }}">
@@ -49,7 +49,7 @@
                         <span class="nav-link-inner--text">{{ __('Profile') }}</span>
                     </a>
                 </li>
-            </ul>
+            </ul> --}}
         </div>
     </div>
 </nav>

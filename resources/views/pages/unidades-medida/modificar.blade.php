@@ -17,12 +17,13 @@
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-pen-nib"></i></span>
               </div>
-              <input 
-                  id="nombre"
-                  type="text"
-                  class="form-control" 
-                  placeholder="{{ __('Nombre') }}"
-                  value="{{ $dato['nombre'] }}">
+              <input type="text" class="form-control" id="nombre" placeholder="Nombre" value="{{ $dato['nombre'] }}">
+            </div>
+            <div class="input-group form-group mt-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-pen-nib"></i></span>
+              </div>
+              <input type="number" class="form-control" id="factor" placeholder="Factor" value="{{ $dato['factor'] }}">
             </div>
             <div class="input-group form-group mt-3">
               <label class="custom-toggle">
@@ -40,6 +41,6 @@
   </div>
 
   @section('js')
-    <script src="{{ asset('js/clase.js') }}"></script>
+    <script src="{{ asset('js/unidad-medida.js') }}"></script>
   @endsection
 @endsection

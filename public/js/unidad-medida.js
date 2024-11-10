@@ -1,5 +1,6 @@
 let origin = '';
 let scrollX = false;
+const RUTA_MODULO = 'unidades-medida';
 
 window.onload = function() {
   origin = window.location.origin;
@@ -22,12 +23,13 @@ function inicializarDatatable (idTabla) {
     "responsive": true,
     "scrollX": scrollX,
     "ajax": {
-      "url": "marcas/obtener",
+      "url": `${RUTA_MODULO}/obtener`,
       "type": "get"
     },
     "columns": [
         { data: 'id', searchable: false },
         { data: 'nombre' },
+        { data: 'factor', searchable: false },
         { data: 'col-estado', searchable: false, orderable: false },
         { data: 'created_at', searchable: false },
         { data: 'updated_at', searchable: false },
@@ -65,19 +67,21 @@ function inicializarDatatable (idTabla) {
 
 function registrar() {
   const nombre = $('#nombre').val();
+  const factor = $('#factor').val();
   const data = {
     nombre,
+    factor,
     _token: $('input[name=_token]').val(),
   };
 
   $.ajax({
     type: 'post',
-    url: 'registrar',
+    url: `../${RUTA_MODULO}`,
     dataType: 'json',
     data,
     success: function(a){
       if (a.estado) {
-        location.replace(origin + '/marcas');
+        location.replace(`${origin}/${RUTA_MODULO}`);
 
       } else {
         Swal.fire('Error!', a.mensaje, 'error');
@@ -92,22 +96,24 @@ function registrar() {
 function actualizar() {
   const id = $('#idDato').val();
   const nombre = $('#nombre').val();
+  const factor = $('#factor').val();
   const estado = $('#estado').prop('checked') ? 1 : 0;
   const data = {
     id,
     nombre,
+    factor,
     estado,
     _token: $('input[name=_token]').val()
   };
 
   $.ajax({
     type: 'put',
-    url: '../actualizar',
+    url: `../../${RUTA_MODULO}`,
     dataType: 'json',
     data,
     success: function(a){
       if (a.estado) {
-        location.replace(origin + '/marcas');
+        location.replace(`${origin}/${RUTA_MODULO}`);
 
       }else {
         Swal.fire('Error!', a.mensaje, 'error');
@@ -132,12 +138,12 @@ function eliminar() {
   }
   $.ajax({
     type: 'delete',
-    url: 'marcas/eliminar',
+    url: `../${RUTA_MODULO}`,
     dataType: 'json',
     data,
     success: function(a){
       if (a.estado) {
-        location.replace(origin+'/marcas');
+        location.replace(`${origin}/${RUTA_MODULO}`);
       }
     },
     error: function(e) {
